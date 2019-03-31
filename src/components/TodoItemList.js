@@ -2,14 +2,30 @@ import React, {Component} from 'react'
 import TodoItem from './TodoItem.js'
 
 class TodoItemList extends Component {
+
+  shouldComponentUpdate(nextProps, nextState) {
+    return this.props !== nextProps.todos
+  }
+
   render() {
+
     const { todos, onToggle, onRemove } = this.props
+
+    const todoList = todos.map(({id, text, checked, color}) => (
+      <TodoItem
+        id={id}
+        text={text}
+        checked={checked}
+        color={color}
+        onToggle={onToggle}
+        onRemove={onRemove}
+        key={id}
+      />
+    ))
 
     return (
       <div>
-        <TodoItem text="hello"/>
-        <TodoItem text="Hi Hi"/>
-        <TodoItem text="this is test"/>
+        {todoList}
       </div>
     )
   }
